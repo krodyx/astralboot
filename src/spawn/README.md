@@ -12,13 +12,13 @@
 
  the spawn web service 
 
- export SPWAN_SOURCE=10.10.10.5 , or -source=10.10.10.5
+ export SPAWN_SOURCE=10.10.10.5 , or -source=10.10.10.5
 
  ## Target 
 
  the fleetd machines
 
- export SPWAN_SOURCE=10.10.10.5 , or -source=10.10.10.5
+ export SPAWN_TARGET=10.10.10.15 , or -target=10.10.10.5
 
  # Function 
 
