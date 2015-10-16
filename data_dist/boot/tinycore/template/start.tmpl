@@ -1,0 +1,6 @@
+#!ipxe{{ $serverIP := .BaseIP }}
+
+kernel http://{{ $serverIP }}/image/tinycore/vmlinuz XVESA=1024x768x16 HTTPLIST={{ $serverIP }}/action/tinycore/onboot
+initrd http://{{ $serverIP }}/image/tinycore/core.gz
+initrd http://{{ $serverIP }}/image/tinycore/astral.gz
+boot
