@@ -24,7 +24,7 @@ coreos:
         - name: 30-ListenStream.conf
           content: |
             [Socket]
-            ListenStream=127.0.0.1:9876
+            ListenStream={{ .IP }}:9876
             Service=fleet.service
             [Install]
             WantedBy=sockets.target
@@ -53,7 +53,9 @@ write_files:
       [Unit]
       Description=spawn service
       [Service]
-      ExecStart=/usr/bin/rkt --insecure-skip-verify run --set-env SPAWN_SOURCE={{ .BaseIP }} http://{{ .BaseIP }}/images/{{ .BaseIP }}/rocket/spawn-latest-linux-amd64.aci
+      ExecStart=/usr/bin/rkt --insecure-skip-verify run --net=host --set-env SPAWN_SOURCE={{ .BaseIP }} http://{{ .BaseIP }}/images/{{ .BaseIP }}/rocket/spawn-latest-linux-amd64.aci -- -target={{ .IP }}
+
+
       [X-Fleet]
       MachineMetadata=role=etcd
 {{ end }}

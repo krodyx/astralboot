@@ -44,14 +44,14 @@
 		{
 			"importpath": "github.com/coreos/etcd/pkg/pathutil",
 			"repository": "https://github.com/coreos/etcd",
-			"revision": "c832d7f6e22a303cdd0a0d5ac34dfdc8b550f495",
+			"revision": "e0a06bb5d6b696d0fbe1895960958cb02f267acb",
 			"branch": "master",
 			"path": "/pkg/pathutil"
 		},
 		{
 			"importpath": "github.com/coreos/etcd/pkg/types",
 			"repository": "https://github.com/coreos/etcd",
-			"revision": "c832d7f6e22a303cdd0a0d5ac34dfdc8b550f495",
+			"revision": "e0a06bb5d6b696d0fbe1895960958cb02f267acb",
 			"branch": "master",
 			"path": "/pkg/types"
 		},
