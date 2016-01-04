@@ -21,6 +21,41 @@
 			"path": "/quantile"
 		},
 		{
+			"importpath": "github.com/coreos/etcd/Godeps/_workspace/src/github.com/ugorji/go/codec",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "c832d7f6e22a303cdd0a0d5ac34dfdc8b550f495",
+			"branch": "master",
+			"path": "/Godeps/_workspace/src/github.com/ugorji/go/codec"
+		},
+		{
+			"importpath": "github.com/coreos/etcd/Godeps/_workspace/src/golang.org/x/net/context",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "c832d7f6e22a303cdd0a0d5ac34dfdc8b550f495",
+			"branch": "master",
+			"path": "/Godeps/_workspace/src/golang.org/x/net/context"
+		},
+		{
+			"importpath": "github.com/coreos/etcd/client",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "c832d7f6e22a303cdd0a0d5ac34dfdc8b550f495",
+			"branch": "master",
+			"path": "/client"
+		},
+		{
+			"importpath": "github.com/coreos/etcd/pkg/pathutil",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "c832d7f6e22a303cdd0a0d5ac34dfdc8b550f495",
+			"branch": "master",
+			"path": "/pkg/pathutil"
+		},
+		{
+			"importpath": "github.com/coreos/etcd/pkg/types",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "c832d7f6e22a303cdd0a0d5ac34dfdc8b550f495",
+			"branch": "master",
+			"path": "/pkg/types"
+		},
+		{
 			"importpath": "github.com/coreos/go-etcd/etcd",
 			"repository": "https://github.com/coreos/go-etcd",
 			"revision": "de3514f25635bbfb024fdaf2a8d5f67378492675",
