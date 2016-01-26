@@ -10,9 +10,9 @@ If there is stuff you should know as a DNS programmer there isn't a convenience
 function for it. Server side and client side programming is supported, i.e. you
 can build servers and resolvers with it.
 
-If you like this, you may also be interested in:
-
-* https://github.com/miekg/unbound -- Go wrapper for the Unbound resolver.
+We try to keep the "master" branch as sane as possible and at the bleeding edge
+of standards, avoiding breaking changes wherever reasonable. We support the last
+two versions of Go, currently: 1.4 and 1.5.
 
 # Goals
 
@@ -44,6 +44,8 @@ A not-so-up-to-date-list-that-may-be-actually-current:
 * https://github.com/benschw/dns-clb-go
 * https://github.com/corny/dnscheck for http://public-dns.tk/
 * https://namesmith.io
+* https://github.com/miekg/unbound
+* https://github.com/miekg/exdns
 
 Send pull request if you want to be listed here.
 
@@ -60,6 +62,7 @@ Send pull request if you want to be listed here.
 * EDNS0, NSID;
 * AXFR/IXFR;
 * TSIG, SIG(0);
+* DNS over TLS: optional encrypted connection between client and server;
 * DNS name compression;
 * Depends only on the standard library.
 
@@ -134,6 +137,7 @@ Example programs can be found in the `github.com/miekg/exdns` repository.
 * 7314 - DNS (EDNS) EXPIRE Option
 * 7553 - URI record
 * xxxx - EDNS0 DNS Update Lease (draft)
+* yyyy - DNS over TLS: Initiation and Performance Considerations (draft)
 
 ## Loosely based upon
 

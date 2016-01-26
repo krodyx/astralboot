@@ -145,13 +145,13 @@ func TestTXTEscapeParsing(t *testing.T) {
 	for _, s := range test {
 		rr, err := NewRR(fmt.Sprintf("example.com. IN TXT %v", s[0]))
 		if err != nil {
-			t.Errorf("Could not parse %v TXT: %s", s[0], err)
+			t.Errorf("could not parse %v TXT: %s", s[0], err)
 			continue
 		}
 
 		txt := sprintTxt(rr.(*TXT).Txt)
 		if txt != s[1] {
-			t.Errorf("Mismatch after parsing `%v` TXT record: `%v` != `%v`", s[0], txt, s[1])
+			t.Errorf("mismatch after parsing `%v` TXT record: `%v` != `%v`", s[0], txt, s[1])
 		}
 	}
 }
@@ -768,7 +768,7 @@ func TestRfc1982(t *testing.T) {
 }
 
 func TestEmpty(t *testing.T) {
-	for _ = range ParseZone(strings.NewReader(""), "", "") {
+	for range ParseZone(strings.NewReader(""), "", "") {
 		t.Errorf("should be empty")
 	}
 }
@@ -1208,11 +1208,11 @@ func TestNewPrivateKey(t *testing.T) {
 		t.Skip("skipping test in short mode.")
 	}
 	algorithms := []algorithm{
-		algorithm{ECDSAP256SHA256, 256},
-		algorithm{ECDSAP384SHA384, 384},
-		algorithm{RSASHA1, 1024},
-		algorithm{RSASHA256, 2048},
-		algorithm{DSA, 1024},
+		{ECDSAP256SHA256, 256},
+		{ECDSAP384SHA384, 384},
+		{RSASHA1, 1024},
+		{RSASHA256, 2048},
+		{DSA, 1024},
 	}
 
 	for _, algo := range algorithms {
