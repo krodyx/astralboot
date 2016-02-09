@@ -208,7 +208,7 @@
 		{
 			"importpath": "github.com/zignig/go-tftp/server",
 			"repository": "https://github.com/zignig/go-tftp",
-			"revision": "b0c365c61e0f48da6c25e89c1b4280ccf00ba9d7",
+			"revision": "241109412b57dbf6e52cf8bc350355da303d303c",
 			"branch": "master",
 			"path": "/server"
 		},
