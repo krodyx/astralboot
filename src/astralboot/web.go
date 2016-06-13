@@ -74,15 +74,19 @@ func NewWebServer(c *Config, l *Store, level int) *WebHandler {
 	wh.router.GET("/action/:dist/:action", wh.Action)
 	// configs for each distro
 	wh.router.GET("/config/:dist/:action", wh.Config)
+
 	if wh.config.Spawn {
 		wh.SpawnHandler()
 	}
+	// Web interface
+	wh.WebInterface()
 	return wh
 }
 
 // Run : run the web server
 func (wh *WebHandler) Run() {
-	logger.Error("Web Server error %v", wh.router.Run(wh.config.BaseIP.String()+":80"))
+	//logger.Error("Web Server error %v", wh.router.Run(wh.config.BaseIP.String()+":80"))
+	logger.Error("Web Server error %v", wh.router.Run("0.0.0.0:80"))
 }
 
 // TemplateData : template construct
