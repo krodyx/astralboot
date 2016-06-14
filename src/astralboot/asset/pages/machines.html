@@ -1,4 +1,4 @@
-<table class="pure-table">
+<table class="pure-table pure-table-horizontal">
     <thead>
         <tr>
             <th>#</th>
@@ -14,13 +14,13 @@
     <tbody>
         {{ range $key, $value := . }}
         <tr>
-            <td>{{ $key }}</td>
+            <td>{{ $value.ID }}</td>
             <td>{{ $value.Name }}</td>
             <td>{{ $value.IP }}</td>
             <td>{{ $value.MAC }}</td>
             <td>{{ $value.Distro }}</td>
             <td>{{ $value.Class }}</td>
-            <td><a class="pure-button" href="#">Edit</a></td>
+            <td><a class="pure-button" href="/machine/edit/{{ $value.ID }}">Edit</a></td>
         </tr>
         {{ end }}
     </tbody>

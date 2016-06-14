@@ -7,6 +7,9 @@ body {
     height: auto;
 }
 
+tr:hover {
+    background-color: #cbcbcb;
+}
 /*
 Add transition to containers so they can push in and out.
 */

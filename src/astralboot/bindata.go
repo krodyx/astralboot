@@ -6,13 +6,13 @@
 // asset/css/pure-min.css
 // asset/js/app.js
 // asset/js/ui.js
-// asset/pages/cluster.html
 // asset/pages/configuration.html
 // asset/pages/containers.html
 // asset/pages/index.html
 // asset/pages/machines.html
 // asset/pages/menu.html
 // asset/pages/node.html
+// asset/pages/system.html
 // DO NOT EDIT!
 
 package main
@@ -147,24 +147,6 @@ func assetJsUiJs() (*asset, error) {
 	return a, err
 }
 
-// assetPagesClusterHtml reads file data from disk. It returns an error on failure.
-func assetPagesClusterHtml() (*asset, error) {
-	path := "/root/astralboot/src/astralboot/asset/pages/cluster.html"
-	name := "asset/pages/cluster.html"
-	bytes, err := bindataRead(path, name)
-	if err != nil {
-		return nil, err
-	}
-
-	fi, err := os.Stat(path)
-	if err != nil {
-		err = fmt.Errorf("Error reading asset info %s at %s: %v", name, path, err)
-	}
-
-	a := &asset{bytes: bytes, info: fi}
-	return a, err
-}
-
 // assetPagesConfigurationHtml reads file data from disk. It returns an error on failure.
 func assetPagesConfigurationHtml() (*asset, error) {
 	path := "/root/astralboot/src/astralboot/asset/pages/configuration.html"
@@ -273,6 +255,24 @@ func assetPagesNodeHtml() (*asset, error) {
 	return a, err
 }
 
+// assetPagesSystemHtml reads file data from disk. It returns an error on failure.
+func assetPagesSystemHtml() (*asset, error) {
+	path := "/root/astralboot/src/astralboot/asset/pages/system.html"
+	name := "asset/pages/system.html"
+	bytes, err := bindataRead(path, name)
+	if err != nil {
+		return nil, err
+	}
+
+	fi, err := os.Stat(path)
+	if err != nil {
+		err = fmt.Errorf("Error reading asset info %s at %s: %v", name, path, err)
+	}
+
+	a := &asset{bytes: bytes, info: fi}
+	return a, err
+}
+
 // Asset loads and returns the asset for the given name.
 // It returns an error if the asset could not be found or
 // could not be loaded.
@@ -331,13 +331,13 @@ var _bindata = map[string]func() (*asset, error){
 	"asset/css/pure-min.css": assetCssPureMinCss,
 	"asset/js/app.js": assetJsAppJs,
 	"asset/js/ui.js": assetJsUiJs,
-	"asset/pages/cluster.html": assetPagesClusterHtml,
 	"asset/pages/configuration.html": assetPagesConfigurationHtml,
 	"asset/pages/containers.html": assetPagesContainersHtml,
 	"asset/pages/index.html": assetPagesIndexHtml,
 	"asset/pages/machines.html": assetPagesMachinesHtml,
 	"asset/pages/menu.html": assetPagesMenuHtml,
 	"asset/pages/node.html": assetPagesNodeHtml,
+	"asset/pages/system.html": assetPagesSystemHtml,
 }
 
 // AssetDir returns the file names below a certain
@@ -400,8 +400,6 @@ var _bintree = &bintree{nil, map[string]*bintree{
 			}},
 		}},
 		"pages": &bintree{nil, map[string]*bintree{
-			"cluster.html": &bintree{assetPagesClusterHtml, map[string]*bintree{
-			}},
 			"configuration.html": &bintree{assetPagesConfigurationHtml, map[string]*bintree{
 			}},
 			"containers.html": &bintree{assetPagesContainersHtml, map[string]*bintree{
@@ -413,6 +411,8 @@ var _bintree = &bintree{nil, map[string]*bintree{
 			"menu.html": &bintree{assetPagesMenuHtml, map[string]*bintree{
 			}},
 			"node.html": &bintree{assetPagesNodeHtml, map[string]*bintree{
+			}},
+			"system.html": &bintree{assetPagesSystemHtml, map[string]*bintree{
 			}},
 		}},
 	}},

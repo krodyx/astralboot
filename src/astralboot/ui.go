@@ -4,7 +4,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"io"
@@ -12,7 +11,7 @@ import (
 	"strings"
 )
 
-var MenuOrder = []string{"machines", "containers", "configuration", "cluster"}
+var MenuOrder = []string{"machines", "containers", "configuration", "system"}
 
 type pageData struct {
 	Menu []string
@@ -57,7 +56,7 @@ func (wh *WebHandler) WebInterface() {
 	wh.router.GET("/machines", wh.machines)
 	wh.router.GET("/configuration", wh.configuration)
 	wh.router.GET("/containers", wh.containers)
-	wh.router.GET("/cluster", wh.cluster)
+	wh.router.GET("/system", wh.system)
 
 	// Load the templates
 	// get the asset dir
@@ -68,7 +67,7 @@ func (wh *WebHandler) WebInterface() {
 	}
 	templ := template.New("")
 	for _, j := range pages {
-		logger.Critical("%s", j)
+		logger.Debug("%s", j)
 		data, _ := Asset("asset/pages/" + j)
 		_, err = templ.New(j).Parse(string(data))
 		if err != nil {
@@ -76,7 +75,6 @@ func (wh *WebHandler) WebInterface() {
 			return
 		}
 	}
-	fmt.Println(tmpl)
 	wh.uiTemplates = templ
 }
 
@@ -104,9 +102,9 @@ func (wh *WebHandler) containers(c *gin.Context) {
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
-func (wh *WebHandler) cluster(c *gin.Context) {
-	data := wh.current("cluster")
-	data["Content"] = wh.content("cluster.html", wh.store.ListActive())
+func (wh *WebHandler) system(c *gin.Context) {
+	data := wh.current("system")
+	data["Content"] = wh.content("system.html", wh.store.ListActive())
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
