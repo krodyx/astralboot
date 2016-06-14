@@ -4,6 +4,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"io"
@@ -26,10 +27,11 @@ func (wh *WebHandler) WebInterface() {
 	templ := template.New("")
 	for _, j := range pages {
 		logger.Critical("%s", j)
-		data, _ := Asset(j)
-		fmt.Println(data)
-		tmpl.New(j).Parse(string(data))
+		data, _ := Asset("asset/pages/" + j)
+		templ.New(j).Parse(string(data))
+
 	}
+	fmt.Println(tmpl)
 	wh.uiTemplates = templ
 
 }
