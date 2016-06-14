@@ -19,6 +19,7 @@ type WebHandler struct {
 	store       *Store
 	templates   *template.Template
 	uiTemplates *h.Template
+	page        *pageData
 	fs          ROfs
 }
 

@@ -1,0 +1,18 @@
+<div id="menu">
+    <div class="pure-menu ">
+        <a class="pure-menu-heading" href="/">Astralboot</a>
+        {{ $section := .Section }}
+        <ul class="pure-menu-list">
+            {{ range $key , $value := .Page.Menu }}
+            {{if eq $section $value}}
+                <li class="pure-menu-item" class="menu-item-divided pure-menu-selected">
+                    <a href="/{{ $value }}" class="pure-menu-link pure-menu-selected">{{ $value }}</a>
+                </li>{{ else }}
+                <li class="pure-menu-item">
+                    <a href="/{{ $value }}" class="pure-menu-link">{{ $value }}</a>
+                </li>{{ end }}
+            {{ end }}
+
+        </ul>
+    </div>
+</div>
