@@ -54,6 +54,7 @@ func (wh *WebHandler) WebInterface() {
 	wh.router.GET("/static/*path", wh.Static)
 	// Confiugre the Subsections
 	wh.router.GET("/machines", wh.machines)
+	wh.router.GET("/machine/edit/:id", wh.machines)
 	wh.router.GET("/configuration", wh.configuration)
 	wh.router.GET("/containers", wh.containers)
 	wh.router.GET("/system", wh.system)
