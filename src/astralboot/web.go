@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	h "html/template"
 	"io"
 	"net"
 	"strconv"
@@ -13,11 +14,12 @@ import (
 
 // WebHandler : construct for web services
 type WebHandler struct {
-	router    *gin.Engine
-	config    *Config
-	store     *Store
-	templates *template.Template
-	fs        ROfs
+	router      *gin.Engine
+	config      *Config
+	store       *Store
+	templates   *template.Template
+	uiTemplates *h.Template
+	fs          ROfs
 }
 
 // NewWebServer : create and configure a new web server
