@@ -25,11 +25,26 @@ func SetupPage() (p *pageData) {
 	return p
 }
 
-func (p *pageData) current(section string) (m map[string]interface{}) {
-	m = make(map[string]interface{})
-	m["Page"] = p
-	m["Section"] = section
+// short data interface for templating
+type td map[string]interface{}
+
+func (wh *WebHandler) current(section string) (m td) {
+	m = td{
+		"Page":    wh.page,
+		"Section": section,
+		"Leases":  wh.store.ListActive(),
+	}
+	// pre rendered content for snippet
 	return m
+}
+
+func (wh *WebHandler) content(name string, data interface{}) (st template.HTML) {
+	buffer := new(bytes.Buffer)
+	err := wh.uiTemplates.ExecuteTemplate(buffer, name, data)
+	if err != nil {
+		logger.Critical("Content Fail", err)
+	}
+	return template.HTML(buffer.String())
 }
 
 // WebInterface : provides a web interface for astralboot functions and monitoring
@@ -63,32 +78,35 @@ func (wh *WebHandler) WebInterface() {
 	}
 	fmt.Println(tmpl)
 	wh.uiTemplates = templ
-
 }
 
 func (wh *WebHandler) Index(c *gin.Context) {
 	logger.Debug("Index HIT")
-	data := wh.page.current("index")
+	data := wh.current("index")
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
 func (wh *WebHandler) machines(c *gin.Context) {
-	data := wh.page.current("machines")
+	data := wh.current("machines")
+	data["Content"] = wh.content("machines.html", wh.store.ListActive())
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
 func (wh *WebHandler) configuration(c *gin.Context) {
-	data := wh.page.current("configuration")
+	data := wh.current("configuration")
+	data["Content"] = wh.content("configuration.html", wh.store.ListActive())
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
 func (wh *WebHandler) containers(c *gin.Context) {
-	data := wh.page.current("containers")
+	data := wh.current("containers")
+	data["Content"] = wh.content("containers.html", wh.store.ListActive())
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
 func (wh *WebHandler) cluster(c *gin.Context) {
-	data := wh.page.current("cluster")
+	data := wh.current("cluster")
+	data["Content"] = wh.content("cluster.html", wh.store.ListActive())
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 

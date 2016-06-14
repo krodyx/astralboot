@@ -1,0 +1,27 @@
+<table class="pure-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>IP</th>
+            <th>MAC</th>
+            <th>Distribuition</th>
+            <th>Class</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{ range $key, $value := . }}
+        <tr>
+            <td>{{ $key }}</td>
+            <td>{{ $value.Name }}</td>
+            <td>{{ $value.IP }}</td>
+            <td>{{ $value.MAC }}</td>
+            <td>{{ $value.Distro }}</td>
+            <td>{{ $value.Class }}</td>
+            <td><a class="pure-button" href="#">Edit</a></td>
+        </tr>
+        {{ end }}
+    </tbody>
+</table>

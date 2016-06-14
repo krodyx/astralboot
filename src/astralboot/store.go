@@ -203,6 +203,11 @@ func (s Store) GetLease(mac net.HardwareAddr) (l *Lease, err error) {
 	return l, err
 }
 
+func (s Store) ListActive() (ll []*Lease) {
+	ll = s.leases.Active()
+	return ll
+}
+
 // NetList : subnet helper function
 func NetList(ip net.IP, subnet net.IP) (IPlist []net.IP) {
 	//ip, ipnet, err := net.ParseCIDR(cidrNet)
