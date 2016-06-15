@@ -4,7 +4,7 @@ package main
 
 import (
 	"bytes"
-	"fmt"
+	//	"fmt"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"io"
@@ -84,6 +84,7 @@ func (wh *WebHandler) WebInterface() {
 func (wh *WebHandler) Index(c *gin.Context) {
 	logger.Debug("Index HIT")
 	data := wh.current("index")
+	data["Content"] = wh.content("doc.html", nil)
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
