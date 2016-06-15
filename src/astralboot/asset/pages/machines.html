@@ -1,27 +1,14 @@
-<table class="pure-table pure-table-horizontal">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>IP</th>
-            <th>MAC</th>
-            <th>Distribuition</th>
-            <th>Class</th>
-            <th>Edit</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        {{ range $key, $value := . }}
-        <tr>
-            <td>{{ $value.ID }}</td>
-            <td>{{ $value.Name }}</td>
-            <td>{{ $value.IP }}</td>
-            <td>{{ $value.MAC }}</td>
-            <td>{{ $value.Distro }}</td>
-            <td>{{ $value.Class }}</td>
-            <td><a class="pure-button" href="/machine/edit/{{ $value.ID }}">Edit</a></td>
-        </tr>
-        {{ end }}
-    </tbody>
-</table>
+<div class="pure-g">
+{{ range $key, $value := . }}
+<div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+    <div class="border">
+        <h2>{{ $value.Name }}</h2>
+        <br><b>IP</b>: {{ $value.IP }}
+        <br><b>MAC</b>: {{ $value.MAC }}
+        <br><b>Distro</b>: {{ $value.Distro }}
+        <br><b>Class</b>: {{ $value.Class }}
+        <hr><a class="pure-button pure-button-primary" href="/machine/edit/{{ $value.ID }}">Edit</a>
+    </div>
+</div>
+{{ end }}
+</div>

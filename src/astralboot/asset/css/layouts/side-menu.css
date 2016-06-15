@@ -10,7 +10,15 @@ body {
 tr:hover {
     background-color: #cbcbcb;
 }
-/*
+
+.border { 
+	border-left: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	padding: 0.9em;
+}
+
+/* 
 Add transition to containers so they can push in and out.
 */
 #layout,
@@ -44,7 +52,6 @@ The content `<div>` is where all your content goes.
 .content {
     margin: 0 auto;
     padding: 0 2em;
-    max-width: 800px;
     margin-bottom: 50px;
     line-height: 1.6em;
 }

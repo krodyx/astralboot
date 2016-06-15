@@ -54,7 +54,7 @@ func (wh *WebHandler) WebInterface() {
 	wh.router.GET("/static/*path", wh.Static)
 	// Confiugre the Subsections
 	wh.router.GET("/machines", wh.machines)
-	wh.router.GET("/machine/edit/:id", wh.machines)
+	wh.router.GET("/machine/edit/:id", wh.machine)
 	wh.router.GET("/configuration", wh.configuration)
 	wh.router.GET("/containers", wh.containers)
 	wh.router.GET("/system", wh.system)
@@ -91,6 +91,12 @@ func (wh *WebHandler) machines(c *gin.Context) {
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
+func (wh *WebHandler) machine(c *gin.Context) {
+	data := wh.current("machines")
+	data["Content"] = wh.content("machine.html", wh.config)
+	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
+}
+
 func (wh *WebHandler) configuration(c *gin.Context) {
 	data := wh.current("configuration")
 	data["Content"] = wh.content("configuration.html", wh.store.ListActive())
@@ -105,7 +111,7 @@ func (wh *WebHandler) containers(c *gin.Context) {
 
 func (wh *WebHandler) system(c *gin.Context) {
 	data := wh.current("system")
-	data["Content"] = wh.content("system.html", wh.store.ListActive())
+	data["Content"] = wh.content("system.html", wh.config)
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
