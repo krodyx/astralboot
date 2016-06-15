@@ -1,5 +1,18 @@
-<ul class="pure-menu-list">
-{{ range $key , $value := .OSList  }}
-<li class="pure-menu-item">{{ $key }} -- {{ $value }}</li>
-{{ end }}
-</ul>
+<form class="pure-form pure-form-aligned" method="post">
+    <legend>Machine Information</legend>
+    <fieldset>
+		<div class="pure-control-group">
+			<label for="name">Name</label>
+			<input id="name" type="text" value="{{ .Name }}">
+		</div>
+		<div class="pure-control-group">
+			<label for="ip">IP Address</label>
+			<input id="ip" type="text" value="{{ .IP }}">
+		</div>
+		<div class="pure-control-group">
+			<label for="distro">Distribuition</label>
+			<input id="distro" type="text" value="{{ .Distro }}">
+		</div>
+        <button type="submit" class="pure-button pure-button-primary">Update</button>
+    </fieldset>
+</form>

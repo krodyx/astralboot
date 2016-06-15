@@ -4,6 +4,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"io"
@@ -55,6 +56,7 @@ func (wh *WebHandler) WebInterface() {
 	// Confiugre the Subsections
 	wh.router.GET("/machines", wh.machines)
 	wh.router.GET("/machine/edit/:id", wh.machine)
+	wh.router.POST("/machine/edit/:id", wh.updateMachine)
 	wh.router.GET("/configuration", wh.configuration)
 	wh.router.GET("/containers", wh.containers)
 	wh.router.GET("/system", wh.system)
@@ -85,6 +87,7 @@ func (wh *WebHandler) Index(c *gin.Context) {
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 
+// Machine Sections
 func (wh *WebHandler) machines(c *gin.Context) {
 	data := wh.current("machines")
 	data["Content"] = wh.content("machines.html", wh.store.ListActive())
@@ -92,8 +95,16 @@ func (wh *WebHandler) machines(c *gin.Context) {
 }
 
 func (wh *WebHandler) machine(c *gin.Context) {
+	id := c.Params.ByName("id")
 	data := wh.current("machines")
-	data["Content"] = wh.content("machine.html", wh.config)
+	data["Content"] = wh.content("machine.html", wh.store.GetFromID(id))
+	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
+}
+
+func (wh *WebHandler) updateMachine(c *gin.Context) {
+	id := c.Params.ByName("id")
+	data := wh.current("machines")
+	data["Content"] = wh.content("machine.html", wh.store.GetFromID(id))
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
 }
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -148,6 +149,18 @@ func (s Store) DistLease(dist string) (ll map[string]*LeaseList) {
 		return
 	}
 	return
+}
+
+// GetFromID : get a lease from an ID
+func (s Store) GetFromID(id string) (l *Lease) {
+	newl := &Lease{}
+	i, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		logger.Error("Id conversion error", err)
+		return nil
+	}
+	newl, _ = s.leases.ID(i)
+	return newl
 }
 
 // GetFromIP : get a lease from an IP

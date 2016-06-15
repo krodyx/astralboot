@@ -46,6 +46,16 @@ func (ll LeaseList) Active() (l []*Lease) {
 	return l
 }
 
+//ID return a lease for the given ID addresss
+func (ll LeaseList) ID(ID int64) (l *Lease, err error) {
+	for _, i := range ll.Leases {
+		if (i.ID == ID) && (i.Active == true) {
+			return i, nil
+		}
+	}
+	return nil, errors.New("no lease")
+}
+
 //IP return a lease for the given IP addresss
 func (ll LeaseList) IP(ip net.IP) (l *Lease, err error) {
 	for _, i := range ll.Leases {
