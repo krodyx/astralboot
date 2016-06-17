@@ -7,8 +7,9 @@ body {
     height: auto;
 }
 
-.nod:hover {
-    background-color: #cbcbcb;
+
+.notif {
+	background: #ff0000 !important;
 }
 
 .border { 
@@ -145,7 +146,7 @@ appears on the left side of the page.
         color: #fff;
     }
     #menu .pure-menu-heading {
-        background: #222;
+        background: #111;
     }
         /*
         This styles a link within a selected menu item `<li>`.

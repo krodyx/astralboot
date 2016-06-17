@@ -6,6 +6,7 @@ import (
 	"bytes"
 	//	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/manucorporat/sse"
 	"html/template"
 	"io"
 	"strconv"
@@ -129,7 +130,11 @@ func (wh *WebHandler) system(c *gin.Context) {
 }
 
 func (wh *WebHandler) event(c *gin.Context) {
-	c.SSEvent("info", "HELLO")
+	c.Render(-1, sse.Event{
+		Event: "info",
+		Data:  "blah",
+		Retry: 10000,
+	})
 }
 
 func (wh *WebHandler) Static(c *gin.Context) {
