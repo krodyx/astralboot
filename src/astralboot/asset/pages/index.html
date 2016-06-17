@@ -6,8 +6,9 @@
 <meta name="description" content="Web interface for administering Astralboot">
 <title>Astralboot Web Interface</title>
 <link rel="stylesheet" href="/static/css/pure-min.css">
-<link rel="stylesheet" href="/static/css/layouts/side-menu.css">
 <link rel="stylesheet" href="/static/css/grids-responsive-min.css">
+<link rel="stylesheet" href="/static/css/layouts/side-menu.css">
+<link rel="stylesheet" href="/static/css/layouts/extra.css">
 </head>
 <body>
 <div id="layout">
@@ -18,6 +19,7 @@
     </a>
     {{ template "menu.html" .}}
     <div id="main">
+        <div id="alert"></div>
         <div class="content">
         <h4 class="content-subhead">  {{ .Section }}</h4>
         <hr>

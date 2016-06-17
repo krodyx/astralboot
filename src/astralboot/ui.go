@@ -4,6 +4,7 @@ package main
 
 import (
 	"bytes"
+	//	"time"
 	//	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/manucorporat/sse"
@@ -133,7 +134,7 @@ func (wh *WebHandler) event(c *gin.Context) {
 	c.Render(-1, sse.Event{
 		Event: "info",
 		Data:  "blah",
-		Retry: 10000,
+		//		Retry: 10000,
 	})
 }
 
