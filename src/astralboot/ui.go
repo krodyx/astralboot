@@ -60,6 +60,7 @@ func (wh *WebHandler) WebInterface() {
 	wh.router.GET("/configuration", wh.configuration)
 	wh.router.GET("/containers", wh.containers)
 	wh.router.GET("/system", wh.system)
+	wh.router.GET("/events", wh.event)
 
 	// Load the templates
 	// get the asset dir
@@ -125,6 +126,10 @@ func (wh *WebHandler) system(c *gin.Context) {
 	data := wh.current("system")
 	data["Content"] = wh.content("system.html", wh.config)
 	wh.uiTemplates.ExecuteTemplate(c.Writer, "index.html", data)
+}
+
+func (wh *WebHandler) event(c *gin.Context) {
+	c.SSEvent("info", "HELLO")
 }
 
 func (wh *WebHandler) Static(c *gin.Context) {
