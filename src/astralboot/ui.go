@@ -6,6 +6,7 @@ import (
 	"bytes"
 	//	"time"
 	//	"fmt"
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/manucorporat/sse"
 	"html/template"
@@ -14,6 +15,12 @@ import (
 	"strings"
 )
 
+type notif struct {
+	Name   string
+	Status string
+}
+
+//Page data constructs
 var MenuOrder = []string{"machines", "containers", "configuration", "system"}
 
 type pageData struct {
@@ -131,10 +138,14 @@ func (wh *WebHandler) system(c *gin.Context) {
 }
 
 func (wh *WebHandler) event(c *gin.Context) {
+	notif := &notif{
+		Name:   "node2",
+		Status: "active",
+	}
+	b, _ := json.Marshal(notif)
 	c.Render(-1, sse.Event{
-		Event: "info",
-		Data:  "blah",
-		//		Retry: 10000,
+		Event: "status",
+		Data:  string(b),
 	})
 }
 

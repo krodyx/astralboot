@@ -8,9 +8,22 @@ function AlertBox(value){
 source.addEventListener('info',function(e){
 //    console.log(e);
     document.getElementById("flag").classList.toggle("notif");
-})
+});
+
+source.addEventListener('status',function(e){
+    var data = JSON.parse(e.data);
+    console.log(data);
+    document.getElementById(data.Name).classList.toggle(data.Status);
+});
 
 source.addEventListener('alert',function(e){
     var d1 = document.getElementById("alert");
     d1.insertAdjacentHTML('beforeend',AlertBox(e.data));
-})
+});
+
+//source.onerror = function(e){
+//   console.log(e);
+//  var d1 = document.getElementById("alert");
+// d1.insertAdjacentHTML('beforeend',AlertBox('fail'));
+//    source.close();
+//};

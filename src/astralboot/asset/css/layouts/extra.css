@@ -10,3 +10,11 @@
 	font-weight:bold;
 	text-transform:uppercase;
 }
+
+.notif {
+	background: #ff0000 !important;
+}
+
+.active {
+	background: #00ff00 !important;
+}

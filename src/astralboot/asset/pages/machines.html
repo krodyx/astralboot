@@ -1,7 +1,7 @@
 <div class="pure-g">
-{{ range $key, $value := . }}
+{{ range $key, $value := . -}}
 <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
-    <div class="border">
+    <div id="{{ $value.Name }}" class="border">
         <h2>{{ $value.Name }}</h2>
         <br><b>IP</b>: {{ $value.IP }}
         <br><b>MAC</b>: {{ $value.MAC }}
