@@ -4,9 +4,8 @@ package main
 
 import (
 	"bytes"
-	//	"time"
-	//	"fmt"
 	"encoding/json"
+	//	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/manucorporat/sse"
 	"html/template"
@@ -138,15 +137,18 @@ func (wh *WebHandler) system(c *gin.Context) {
 }
 
 func (wh *WebHandler) event(c *gin.Context) {
-	notif := &notif{
-		Name:   "node2",
-		Status: "active",
+	list := wh.store.ListActive()
+	for _, j := range list {
+		notif := &notif{
+			Name:   j.Name,
+			Status: "active",
+		}
+		b, _ := json.Marshal(notif)
+		c.Render(-1, sse.Event{
+			Event: "status",
+			Data:  string(b),
+		})
 	}
-	b, _ := json.Marshal(notif)
-	c.Render(-1, sse.Event{
-		Event: "status",
-		Data:  string(b),
-	})
 }
 
 func (wh *WebHandler) Static(c *gin.Context) {
