@@ -4,14 +4,14 @@ package main
 
 import (
 	"bytes"
-	"encoding/json"
+	//"encoding/json"
 	//	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/manucorporat/sse"
 	"html/template"
 	"io"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type notif struct {
@@ -137,18 +137,20 @@ func (wh *WebHandler) system(c *gin.Context) {
 }
 
 func (wh *WebHandler) event(c *gin.Context) {
-	list := wh.store.ListActive()
-	for _, j := range list {
-		notif := &notif{
-			Name:   j.Name,
-			Status: "active",
+	//list := wh.store.ListActive()
+	ticker := time.NewTicker(5 * time.Second)
+	// listener
+	defer func() {
+		// close listener
+		ticker.Stop()
+	}()
+	c.Stream(func(w io.Writer) bool {
+		select {
+		case <-ticker.C:
+			c.SSEvent("tick", "")
 		}
-		b, _ := json.Marshal(notif)
-		c.Render(-1, sse.Event{
-			Event: "status",
-			Data:  string(b),
-		})
-	}
+		return true
+	})
 }
 
 func (wh *WebHandler) Static(c *gin.Context) {
