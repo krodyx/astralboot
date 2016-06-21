@@ -10,6 +10,10 @@ source.addEventListener('info',function(e){
     document.getElementById("flag").classList.toggle("notif");
 });
 
+source.addEventListener('tick',function(e){
+    console.log(e);
+});
+
 source.addEventListener('status',function(e){
     var data = JSON.parse(e.data);
     console.log(data);

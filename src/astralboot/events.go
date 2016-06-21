@@ -10,3 +10,14 @@ import (
 type Events struct {
 	caster broadcast.Broadcaster
 }
+
+func NewEvents() (e *Events) {
+	e = &Events{}
+	e.caster = broadcast.NewBroadcaster(1024)
+	return
+}
+
+type notif struct {
+	Name   string
+	Status string
+}

@@ -14,11 +14,6 @@ import (
 	"time"
 )
 
-type notif struct {
-	Name   string
-	Status string
-}
-
 //Page data constructs
 var MenuOrder = []string{"machines", "containers", "configuration", "system"}
 
