@@ -134,13 +134,17 @@ func (wh *WebHandler) system(c *gin.Context) {
 func (wh *WebHandler) event(c *gin.Context) {
 	//list := wh.store.ListActive()
 	ticker := time.NewTicker(5 * time.Second)
+	li := EV.GetListener()
 	// listener
 	defer func() {
 		// close listener
+		EV.CloseListener(li)
 		ticker.Stop()
 	}()
 	c.Stream(func(w io.Writer) bool {
 		select {
+		case msg := <-li:
+			c.SSEvent("alert", msg)
 		case <-ticker.C:
 			c.SSEvent("tick", "")
 		}
