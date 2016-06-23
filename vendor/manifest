@@ -180,6 +180,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/satori/go.uuid",
+			"repository": "https://github.com/satori/go.uuid",
+			"revision": "879c5887cd475cd7864858769793b2ceb0d44feb",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/skynetservices/skydns",
 			"repository": "https://github.com/skynetservices/skydns",
 			"revision": "2e374db5518fce8a5e936d7627734d2bdbd78073",

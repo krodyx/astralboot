@@ -6,7 +6,7 @@ function AlertBox(value){
 }
 
 function Acknowledge(value){
-    var alertBox = '<div class="alert-box error"><span></span>'+value+'<a class="pure-button" href="#">ACK</a></div>';
+    var alertBox = '<div class="alert-box error"><span></span>'+value.Status+' <a class="pure-button" href="/ack/'+value.UUID+'">ACK</a></div>';
     return alertBox;
 }
 
@@ -27,13 +27,15 @@ source.addEventListener('status',function(e){
 
 source.addEventListener('alert',function(e){
     var d1 = document.getElementById("alert");
-    d1.insertAdjacentHTML('beforeend',AlertBox(e.data));
+    var data = JSON.parse(e.data);
+    d1.insertAdjacentHTML('beforeend',AlertBox(data));
 });
 
 source.addEventListener('ack',function(e){
     console.log(e);
     var d1 = document.getElementById("alert");
-    d1.insertAdjacentHTML('beforeend',Acknowledge(e.data));
+    var data = JSON.parse(e.data);
+    d1.insertAdjacentHTML('beforeend',Acknowledge(data));
 });
 //source.onerror = function(e){
 //   console.log(e);

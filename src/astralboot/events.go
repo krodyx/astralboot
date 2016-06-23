@@ -5,6 +5,7 @@ package main
 import (
 	"fmt"
 	"github.com/dustin/go-broadcast"
+	"github.com/satori/go.uuid"
 	"math/rand"
 	"time"
 )
@@ -17,6 +18,7 @@ type Events struct {
 type notif struct {
 	Name   string
 	Status string
+	UUID   uuid.UUID
 }
 
 func NewEvents() (e *Events) {
@@ -54,6 +56,7 @@ func (e *Events) AddPersist(section string, status string) {
 	n := &notif{
 		Name:   section,
 		Status: status,
+		UUID:   uuid.NewV4(),
 	}
 	e.persist = append(e.persist, n)
 }
@@ -62,6 +65,7 @@ func (e *Events) Insert(section string, status string) {
 	n := &notif{
 		Name:   section,
 		Status: status,
+		UUID:   uuid.NewV4(),
 	}
 	e.caster.Submit(n)
 }

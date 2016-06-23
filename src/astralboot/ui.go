@@ -5,7 +5,7 @@ package main
 import (
 	"bytes"
 	//"encoding/json"
-	"fmt"
+	//"fmt"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"io"
@@ -146,7 +146,6 @@ func (wh *WebHandler) event(c *gin.Context) {
 	c.Stream(func(w io.Writer) bool {
 		select {
 		case msg := <-li:
-			fmt.Println(msg.(*notif).Name)
 			c.SSEvent(msg.(*notif).Name, msg)
 		case <-ticker.C:
 			c.SSEvent("tick", "")
