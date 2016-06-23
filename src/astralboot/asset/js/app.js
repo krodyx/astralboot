@@ -6,8 +6,15 @@ function AlertBox(value){
 }
 
 function Acknowledge(value){
-    var alertBox = '<div class="alert-box error"><span></span>'+value.Status+' <a class="pure-button" href="/ack/'+value.UUID+'">ACK</a></div>';
+    var alertBox = '<div id="'+value.UUID+'" class="alert-box error"><span></span>'+value.Status+' <a class="pure-button" onclick="FetchClick(\''+value.UUID+'\');" >ACK</a></div>';
     return alertBox;
+}
+
+function FetchClick(id){
+    console.log(id);
+    fetch('ack/'+id,{method: 'get' }).then(function(response){
+        console.log(response);
+    });
 }
 
 source.addEventListener('info',function(e){
