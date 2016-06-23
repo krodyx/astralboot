@@ -5,7 +5,7 @@ package main
 import (
 	"bytes"
 	//"encoding/json"
-	//	"fmt"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"io"
@@ -135,6 +135,8 @@ func (wh *WebHandler) event(c *gin.Context) {
 	//list := wh.store.ListActive()
 	ticker := time.NewTicker(5 * time.Second)
 	li := EV.GetListener()
+	// add in the persistent notification
+	EV.SpoolPersist(li)
 	// listener
 	defer func() {
 		// close listener
@@ -144,7 +146,8 @@ func (wh *WebHandler) event(c *gin.Context) {
 	c.Stream(func(w io.Writer) bool {
 		select {
 		case msg := <-li:
-			c.SSEvent("alert", msg)
+			fmt.Println(msg.(*notif).Name)
+			c.SSEvent(msg.(*notif).Name, msg)
 		case <-ticker.C:
 			c.SSEvent("tick", "")
 		}

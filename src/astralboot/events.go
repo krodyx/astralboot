@@ -3,14 +3,15 @@ package main
 // A channel muxer for the event system
 
 import (
+	"fmt"
+	"github.com/dustin/go-broadcast"
 	"math/rand"
 	"time"
-	//	"fmt"
-	"github.com/dustin/go-broadcast"
 )
 
 type Events struct {
-	caster broadcast.Broadcaster
+	caster  broadcast.Broadcaster
+	persist []*notif
 }
 
 type notif struct {
@@ -21,14 +22,17 @@ type notif struct {
 func NewEvents() (e *Events) {
 	e = &Events{}
 	e.caster = broadcast.NewBroadcaster(1024)
+	e.persist = make([]*notif, 0)
 	// random testing
+	e.AddPersist("ack", "persist")
+	e.AddPersist("ack", "persist")
 	//go e.InsertRandom()
 	return
 }
 
 func (e *Events) GetListener() chan interface{} {
 	logger.Info("Create Listener")
-	listener := make(chan interface{})
+	listener := make(chan interface{}, 10)
 	e.caster.Register(listener)
 	return listener
 }
@@ -37,6 +41,21 @@ func (e *Events) CloseListener(listener chan interface{}) {
 	logger.Info("Closing Listener")
 	e.caster.Unregister(listener)
 	close(listener)
+}
+
+func (e *Events) SpoolPersist(listener chan interface{}) {
+	for _, j := range e.persist {
+		fmt.Println(j)
+		listener <- j
+	}
+}
+
+func (e *Events) AddPersist(section string, status string) {
+	n := &notif{
+		Name:   section,
+		Status: status,
+	}
+	e.persist = append(e.persist, n)
 }
 
 func (e *Events) Insert(section string, status string) {

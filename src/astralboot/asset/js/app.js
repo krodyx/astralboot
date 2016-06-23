@@ -1,7 +1,12 @@
 source = new EventSource('/events');
 
 function AlertBox(value){
-    var alertBox = '<div class="alert-box error"><span>Error : </span>'+value+'</div>';
+    var alertBox = '<div class="alert-box error"><span></span>'+value+'</div>';
+    return alertBox;
+}
+
+function Acknowledge(value){
+    var alertBox = '<div class="alert-box error"><span></span>'+value+'<a class="pure-button" href="#">ACK</a></div>';
     return alertBox;
 }
 
@@ -11,7 +16,7 @@ source.addEventListener('info',function(e){
 });
 
 source.addEventListener('tick',function(e){
-    console.log(e);
+    //console.log(e);
 });
 
 source.addEventListener('status',function(e){
@@ -25,6 +30,11 @@ source.addEventListener('alert',function(e){
     d1.insertAdjacentHTML('beforeend',AlertBox(e.data));
 });
 
+source.addEventListener('ack',function(e){
+    console.log(e);
+    var d1 = document.getElementById("alert");
+    d1.insertAdjacentHTML('beforeend',Acknowledge(e.data));
+});
 //source.onerror = function(e){
 //   console.log(e);
 //  var d1 = document.getElementById("alert");
