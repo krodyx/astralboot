@@ -7,12 +7,14 @@ import (
 	"github.com/dustin/go-broadcast"
 	"github.com/satori/go.uuid"
 	"math/rand"
+	"sync"
 	"time"
 )
 
 type Events struct {
 	caster  broadcast.Broadcaster
 	persist []*notif
+	lock    sync.Mutex
 }
 
 type notif struct {
@@ -59,6 +61,16 @@ func (e *Events) AddPersist(section string, status string) {
 		UUID:   uuid.NewV4(),
 	}
 	e.persist = append(e.persist, n)
+}
+
+func (e *Events) AckPersist(uuid string) {
+	for j, k := range e.persist {
+		if uuid == k.UUID.String() {
+			e.lock.Lock()
+			e.persist = append(e.persist[:j], e.persist[j+1:]...)
+			e.lock.Unlock()
+		}
+	}
 }
 
 func (e *Events) Insert(section string, status string) {

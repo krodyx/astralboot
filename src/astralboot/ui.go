@@ -65,6 +65,8 @@ func (wh *WebHandler) WebInterface() {
 	wh.router.GET("/system", wh.system)
 	wh.router.GET("/events", wh.event)
 
+	wh.router.GET("/ack/:uuid", wh.ack)
+
 	// Load the templates
 	// get the asset dir
 	pages, err := AssetDir("asset/pages")
@@ -83,6 +85,12 @@ func (wh *WebHandler) WebInterface() {
 		}
 	}
 	wh.uiTemplates = templ
+}
+
+//ack - ack a persistent notifiation
+func (wh *WebHandler) ack(c *gin.Context) {
+	id := c.Params.ByName("uuid")
+	EV.AckPersist(id)
 }
 
 func (wh *WebHandler) Index(c *gin.Context) {

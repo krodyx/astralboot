@@ -14,6 +14,8 @@ function FetchClick(id){
     console.log(id);
     fetch('ack/'+id,{method: 'get' }).then(function(response){
         console.log(response);
+        var element = document.getElementById(id);
+        element.parentNode.removeChild(element);
     });
 }
 
