@@ -27,9 +27,6 @@ func NewEvents() (e *Events) {
 	e = &Events{}
 	e.caster = broadcast.NewBroadcaster(1024)
 	e.persist = make([]*notif, 0)
-	// random testing
-	e.AddPersist("ack", "persist")
-	e.AddPersist("ack", "persist")
 	//go e.InsertRandom()
 	return
 }
@@ -61,6 +58,7 @@ func (e *Events) AddPersist(section string, status string) {
 		UUID:   uuid.NewV4(),
 	}
 	e.persist = append(e.persist, n)
+	e.caster.Submit(n)
 }
 
 func (e *Events) AckPersist(uuid string) {

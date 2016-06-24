@@ -6,7 +6,7 @@ function AlertBox(value){
 }
 
 function Acknowledge(value){
-    var alertBox = '<div id="'+value.UUID+'" class="alert-box error"><span></span>'+value.Status+' <a class="pure-button" onclick="FetchClick(\''+value.UUID+'\');" >ACK</a></div>';
+    var alertBox = '<div id="'+value.UUID+'" class="alert-box error"><span></span>'+value.Status+' <a class="pure-button " onclick="FetchClick(\''+value.UUID+'\');" >ACK</a></div>';
     return alertBox;
 }
 

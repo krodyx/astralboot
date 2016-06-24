@@ -145,7 +145,7 @@ func (wh *WebHandler) Config(c *gin.Context) {
 	}
 	td := wh.GenTemplateData(client, dist)
 	logger.Notice("Perform %s from %s on %s", action, dist, td.Lease.Name)
-	EV.Insert("alert", action)
+	EV.AddPersist("ack", action)
 	if td.Lease.Class != "" {
 		logger.Info("Class %s", td.Lease.Class)
 		action = c.Params.ByName("action") + "-" + td.Lease.Class
@@ -265,7 +265,7 @@ func (wh *WebHandler) Starter(c *gin.Context) {
 	dist := c.Params.ByName("dist")
 	mac := c.Params.ByName("mac")
 	logger.Info("Starting os for %s on %s", dist, mac)
-	EV.Insert("alert", fmt.Sprintf("%s", mac))
+	EV.AddPersist("ack", fmt.Sprintf("%s", mac))
 	wh.config.OSList[dist].templates.ExecuteTemplate(c.Writer, "start", wh.config)
 }
 
