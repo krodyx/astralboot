@@ -17,6 +17,7 @@ coreos:
       command: start
     - name: fleet.service
       command: start
+{{ template "keys" . }}
 # Spawn auto launch system
 {{ if .Config.Spawn }}
     - name: fleet.socket
@@ -24,19 +25,10 @@ coreos:
         - name: 30-ListenStream.conf
           content: |
             [Socket]
-            ListenStream={{ .IP }}:9876
+            ListenStream=0.0.0.0:9876
             Service=fleet.service
             [Install]
             WantedBy=sockets.target
-    - name: get_keys.service
-      command: start
-      content: |
-        [Unit]
-        After=rkt-metadata.service
-        Requires=rkt-metadata.service
-        [Service]
-        Type=oneshot
-        ExecStart=/bin/sh -c "/usr/bin/echo yes | /usr/bin/rkt trust --insecure-allow-http --prefix=astralboot http://{{ .BaseIP }}/rocket/astral.gpg"
     - name: spawn_launch.service
       command: start
       content: |
@@ -53,9 +45,7 @@ write_files:
       [Unit]
       Description=spawn service
       [Service]
-      ExecStart=/usr/bin/rkt --insecure-skip-verify run --net=host --set-env SPAWN_SOURCE={{ .BaseIP }} http://{{ .BaseIP }}/images/{{ .BaseIP }}/rocket/spawn-latest-linux-amd64.aci -- -target={{ .IP }}
-
-
+      ExecStart=/usr/bin/rkt run --insecure-options=all --set-env SPAWN_SOURCE={{ .BaseIP }} --set-env SPAWN_TARGET={{ .IP  }} http://{{ .BaseIP }}/images/{{ .BaseIP }}/rocket/spawn-latest-linux-amd64.aci
       [X-Fleet]
       MachineMetadata=role=etcd
 {{ end }}

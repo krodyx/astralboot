@@ -87,6 +87,12 @@ func NewWebServer(c *Config, l *Store, level int) *WebHandler {
 }
 
 // Run : run the web server
+func (wh *WebHandler) RunTLS() {
+	//logger.Error("Web Server error %v", wh.router.Run(wh.config.BaseIP.String()+":80"))
+	logger.Error("Web Server error %v", wh.router.RunTLS("0.0.0.0:443", "astralboot.pem", "astralboot-key.pem"))
+}
+
+// Run : run the web server
 func (wh *WebHandler) Run() {
 	//logger.Error("Web Server error %v", wh.router.Run(wh.config.BaseIP.String()+":80"))
 	logger.Error("Web Server error %v", wh.router.Run("0.0.0.0:80"))

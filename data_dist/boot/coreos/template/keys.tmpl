@@ -1,0 +1,11 @@
+    - name: get_keys.service
+      command: start
+      content: |
+        [Unit]
+        After=rkt-metadata.service
+        Requires=rkt-metadata.service
+        [Service]
+        Type=oneshot
+        ExecStart=/bin/sh -c "/usr/bin/echo yes | sudo /usr/bin/rkt trust --skip-fingerprint-review --insecure-allow-http --prefix=astralboot http://{{ .BaseIP }}/rocket/astral.gpg"
+        ExecStart=/bin/sh -c "curl http://{{ .BaseIP }}/bin/ca.pem -o /etc/ssl/certs/ca.pem"
+        ExecStart=/bin/sh -c "update-ca-certificates"
