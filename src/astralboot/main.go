@@ -51,7 +51,7 @@ func main() {
 	logger.Info("start web server")
 	wh := NewWebServer(conf, leases, logLevel)
 	go wh.Run()
-	go wh.RunTLS()
+	// go wh.RunTLS()
 	logger.Notice("Serving ...")
 	// go spinner
 	c := make(chan int, 1)

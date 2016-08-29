@@ -23,9 +23,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 // bindataRead reads the given file from disk. It returns an error on failure.
@@ -349,7 +349,7 @@ func Asset(name string) ([]byte, error) {
 // It simplifies safe initialization of global variables.
 func MustAsset(name string) []byte {
 	a, err := Asset(name)
-	if err != nil {
+	if (err != nil) {
 		panic("asset: Asset(" + name + "): " + err.Error())
 	}
 
@@ -436,82 +436,98 @@ func AssetDir(name string) ([]string, error) {
 }
 
 type bintree struct {
-	Func     func() (*asset, error)
+	Func func() (*asset, error)
 	Children map[string]*bintree
 }
 var _bintree = &bintree{nil, map[string]*bintree{
 	"asset": &bintree{nil, map[string]*bintree{
 		"css": &bintree{nil, map[string]*bintree{
-			"grids-responsive-min.css": &bintree{assetCssGridsResponsiveMinCss, map[string]*bintree{}},
-			"layouts": &bintree{nil, map[string]*bintree{
-				"extra.css": &bintree{assetCssLayoutsExtraCss, map[string]*bintree{}},
-				"side-menu.css": &bintree{assetCssLayoutsSideMenuCss, map[string]*bintree{}},
+			"grids-responsive-min.css": &bintree{assetCssGridsResponsiveMinCss, map[string]*bintree{
 			}},
-			"pure-LICENSE.md": &bintree{assetCssPureLicenseMd, map[string]*bintree{}},
-			"pure-min.css": &bintree{assetCssPureMinCss, map[string]*bintree{}},
+			"layouts": &bintree{nil, map[string]*bintree{
+				"extra.css": &bintree{assetCssLayoutsExtraCss, map[string]*bintree{
+				}},
+				"side-menu.css": &bintree{assetCssLayoutsSideMenuCss, map[string]*bintree{
+				}},
+			}},
+			"pure-LICENSE.md": &bintree{assetCssPureLicenseMd, map[string]*bintree{
+			}},
+			"pure-min.css": &bintree{assetCssPureMinCss, map[string]*bintree{
+			}},
 		}},
 		"js": &bintree{nil, map[string]*bintree{
-			"app.js": &bintree{assetJsAppJs, map[string]*bintree{}},
-			"ui.js": &bintree{assetJsUiJs, map[string]*bintree{}},
+			"app.js": &bintree{assetJsAppJs, map[string]*bintree{
+			}},
+			"ui.js": &bintree{assetJsUiJs, map[string]*bintree{
+			}},
 		}},
 		"pages": &bintree{nil, map[string]*bintree{
-			"configuration.html": &bintree{assetPagesConfigurationHtml, map[string]*bintree{}},
-			"containers.html": &bintree{assetPagesContainersHtml, map[string]*bintree{}},
-			"doc.html": &bintree{assetPagesDocHtml, map[string]*bintree{}},
-			"index.html": &bintree{assetPagesIndexHtml, map[string]*bintree{}},
-			"machine.html": &bintree{assetPagesMachineHtml, map[string]*bintree{}},
-			"machines.html": &bintree{assetPagesMachinesHtml, map[string]*bintree{}},
-			"menu.html": &bintree{assetPagesMenuHtml, map[string]*bintree{}},
-			"node.html": &bintree{assetPagesNodeHtml, map[string]*bintree{}},
-			"system.html": &bintree{assetPagesSystemHtml, map[string]*bintree{}},
+			"configuration.html": &bintree{assetPagesConfigurationHtml, map[string]*bintree{
+			}},
+			"containers.html": &bintree{assetPagesContainersHtml, map[string]*bintree{
+			}},
+			"doc.html": &bintree{assetPagesDocHtml, map[string]*bintree{
+			}},
+			"index.html": &bintree{assetPagesIndexHtml, map[string]*bintree{
+			}},
+			"machine.html": &bintree{assetPagesMachineHtml, map[string]*bintree{
+			}},
+			"machines.html": &bintree{assetPagesMachinesHtml, map[string]*bintree{
+			}},
+			"menu.html": &bintree{assetPagesMenuHtml, map[string]*bintree{
+			}},
+			"node.html": &bintree{assetPagesNodeHtml, map[string]*bintree{
+			}},
+			"system.html": &bintree{assetPagesSystemHtml, map[string]*bintree{
+			}},
 		}},
 	}},
 }}
 
 // RestoreAsset restores an asset under the given directory
 func RestoreAsset(dir, name string) error {
-	data, err := Asset(name)
-	if err != nil {
-		return err
-	}
-	info, err := AssetInfo(name)
-	if err != nil {
-		return err
-	}
-	err = os.MkdirAll(_filePath(dir, filepath.Dir(name)), os.FileMode(0755))
-	if err != nil {
-		return err
-	}
-	err = ioutil.WriteFile(_filePath(dir, name), data, info.Mode())
-	if err != nil {
-		return err
-	}
-	err = os.Chtimes(_filePath(dir, name), info.ModTime(), info.ModTime())
-	if err != nil {
-		return err
-	}
-	return nil
+        data, err := Asset(name)
+        if err != nil {
+                return err
+        }
+        info, err := AssetInfo(name)
+        if err != nil {
+                return err
+        }
+        err = os.MkdirAll(_filePath(dir, filepath.Dir(name)), os.FileMode(0755))
+        if err != nil {
+                return err
+        }
+        err = ioutil.WriteFile(_filePath(dir, name), data, info.Mode())
+        if err != nil {
+                return err
+        }
+        err = os.Chtimes(_filePath(dir, name), info.ModTime(), info.ModTime())
+        if err != nil {
+                return err
+        }
+        return nil
 }
 
 // RestoreAssets restores an asset under the given directory recursively
 func RestoreAssets(dir, name string) error {
-	children, err := AssetDir(name)
-	// File
-	if err != nil {
-		return RestoreAsset(dir, name)
-	}
-	// Dir
-	for _, child := range children {
-		err = RestoreAssets(dir, filepath.Join(name, child))
-		if err != nil {
-			return err
-		}
-	}
-	return nil
+        children, err := AssetDir(name)
+        // File
+        if err != nil {
+                return RestoreAsset(dir, name)
+        }
+        // Dir
+        for _, child := range children {
+                err = RestoreAssets(dir, filepath.Join(name, child))
+                if err != nil {
+                        return err
+                }
+        }
+        return nil
 }
 
 func _filePath(dir, name string) string {
-	cannonicalName := strings.Replace(name, "\\", "/", -1)
-	return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
+        cannonicalName := strings.Replace(name, "\\", "/", -1)
+        return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
 }
 
